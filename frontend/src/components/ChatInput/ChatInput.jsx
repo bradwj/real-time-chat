@@ -3,7 +3,7 @@ import "./ChatInput.scss";
 
 const ChatInput = ({ sendMessage }) => (
   <div className="chat-input">
-    <input onKeyDown={sendMessage} />
+    <input onKeyDown={sendMessage} placeholder="Enter a message and press Enter to send!"/>
   </div>
 );
 
