@@ -1,14 +1,15 @@
 const socket = new WebSocket("ws://localhost:8080/ws")
 
-const connect = () => {
+const connect = callback => {
   console.log("Attempting Connection...");
 
   socket.onopen = () => {
-    console.log("Successfully Connected")
+    console.log("Successfully Connected");
   };
 
   socket.onmessage = msg => {
-    console.log(msg)
+    console.log(msg);
+    callback(msg);
   };
 
   socket.onclose = event => {
