@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import './App.css';
-import { connect, sendMsg } from './api';
+import "./App.css";
+import { connect, sendMsg } from "./api";
 import Header from "./components/Header/Header"
-import ChatHistory from './components/ChatHistory/ChatHistory'
-
+import ChatHistory from "./components/ChatHistory/ChatHistory"
+import ChatInput from "./components/ChatInput/ChatInput"
 
 function App() {
 
@@ -11,24 +11,25 @@ function App() {
 
   useEffect(() => {
     connect((msg) => {
-      console.log("New Message");
       const newChatHistory = [...chatHistory, msg];
       setChatHistory(newChatHistory);
     });
-    console.log(chatHistory);
-  }, []);
+  }, [chatHistory]);
   
 
-  function sendMessage() {
-    console.log("Hello");
-    sendMsg("Hello");
+  function sendMessage(event) {
+    // send message when enter key pressed
+    if (event.keyCode === 13) {
+      sendMsg(event.target.value);
+      event.target.value = "";
+    }
   }
 
   return (
     <div className="App">
       <Header />
       <ChatHistory chatHistory={chatHistory} />
-      <button onClick={sendMessage}>Send Message</button>
+      <ChatInput sendMessage={sendMessage} />
     </div>
   );
 }
